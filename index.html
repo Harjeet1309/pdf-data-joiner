@@ -1,69 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF Data Joiner</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📄 PDF Data Joiner</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      background-color: #f6f8fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     h1 {
-      color: #0078D7;
-      text-align: center;
+      color: #222;
+      margin-top: 30px;
     }
-    a.button {
-      display: inline-block;
-      background: #0078D7;
-      color: white;
-      padding: 10px 20px;
-      text-decoration: none;
-      border-radius: 6px;
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 90%;
       margin-top: 20px;
+    }
+    input[type="file"] {
+      margin: 10px 0;
+      display: block;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
     }
     pre {
       background: #f0f0f0;
       padding: 10px;
       border-radius: 6px;
       overflow-x: auto;
+      max-height: 400px;
     }
   </style>
 </head>
 <body>
+  <h1>📄 PDF Data Joiner</h1>
   <div class="container">
-    <h1>📄 PDF Data Joiner</h1>
-    <p>
-      This project lets you upload two PDFs and automatically find common data or text — 
-      built with <strong>Python, Streamlit, Pandas, pdfplumber, Tabula,</strong> and <strong>FuzzyWuzzy</strong>.
-    </p>
+    <p>Upload two PDFs and find their common data automatically!</p>
+    <input type="file" id="pdf1" accept="application/pdf" />
+    <input type="file" id="pdf2" accept="application/pdf" />
+    <button onclick="uploadPDFs()">Find Common Data</button>
 
-    <a class="button" href="https://github.com/Harjeet1309/pdf-data-joiner" target="_blank">🔗 View Source Code on GitHub</a>
-
-    <h3>How it Works</h3>
-    <ol>
-      <li>Upload two PDFs.</li>
-      <li>Extracts tables using Tabula or text using pdfplumber.</li>
-      <li>Finds common data automatically using fuzzy matching.</li>
-      <li>Lets you download results as CSV.</li>
-    </ol>
-
-    <h3>Sample Code Snippet</h3>
-    <pre><code>import streamlit as st
-import pandas as pd
-import pdfplumber
-import tabula
-from fuzzywuzzy import fuzz</code></pre>
+    <h3>Result:</h3>
+    <pre id="result"></pre>
   </div>
+
+  <script>
+    async function uploadPDFs() {
+      const file1 = document.getElementById("pdf1").files[0];
+      const file2 = document.getElementById("pdf2").files[0];
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = "Processing...";
+
+      if (!file1 || !file2) {
+        alert("Please upload both PDF files!");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("pdf1", file1);
+      formData.append("pdf2", file2);
+
+      try {
+        const response = await fetch("https://pdf-joiner-backend.onrender.com/join", {
+          method: "POST",
+          body: formData
+        });
+        const data = await response.json();
+        resultBox.textContent = JSON.stringify(data, null, 2);
+      } catch (error) {
+        resultBox.textContent = "Error: " + error.message;
+      }
+    }
+  </script>
 </body>
 </html>
