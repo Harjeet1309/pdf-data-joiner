@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Data Joiner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    h1 {
+      color: #0078D7;
+      text-align: center;
+    }
+    a.button {
+      display: inline-block;
+      background: #0078D7;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    pre {
+      background: #f0f0f0;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📄 PDF Data Joiner</h1>
+    <p>
+      This project lets you upload two PDFs and automatically find common data or text — 
+      built with <strong>Python, Streamlit, Pandas, pdfplumber, Tabula,</strong> and <strong>FuzzyWuzzy</strong>.
+    </p>
+
+    <a class="button" href="https://github.com/Harjeet1309/pdf-data-joiner" target="_blank">🔗 View Source Code on GitHub</a>
+
+    <h3>How it Works</h3>
+    <ol>
+      <li>Upload two PDFs.</li>
+      <li>Extracts tables using Tabula or text using pdfplumber.</li>
+      <li>Finds common data automatically using fuzzy matching.</li>
+      <li>Lets you download results as CSV.</li>
+    </ol>
+
+    <h3>Sample Code Snippet</h3>
+    <pre><code>import streamlit as st
+import pandas as pd
+import pdfplumber
+import tabula
+from fuzzywuzzy import fuzz</code></pre>
+  </div>
+</body>
+</html>
