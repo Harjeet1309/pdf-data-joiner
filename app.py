@@ -6,7 +6,7 @@ from io import BytesIO
 
 st.set_page_config(page_title="PDF Data Joiner", layout="wide")
 st.title("📄 PDF Data Joiner")
-st.write("Upload two PDFs — I’ll find the common data or text automatically. (No Java required)")
+st.write("Upload two PDFs — I’ll find the common data or text automatically!")
 
 uploaded_file1 = st.file_uploader("Upload First PDF", type=["pdf"])
 uploaded_file2 = st.file_uploader("Upload Second PDF", type=["pdf"])
